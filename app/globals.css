@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
+/* ── Design Tokens ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-heading: var(--font-poppins);
+  --font-body: var(--font-satoshi);
+
+  /* Brand colors */
+  --color-brand-blue: #0038E3;
+  --color-lime: #CCFF00;
+  --color-ink: #14141F;
+  --color-muted: #6B7280;
+  --color-surface-gray: #F4F4F5;
+  --color-card-border: #E5E7EB;
+  --color-growth-gradient-start: #F3FFD6;
+  --color-growth-gradient-end: #E7EAFB;
 }
 
+/* ── Tailwind v4 Theme ── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-poppins);
+  --font-body: var(--font-satoshi);
+
+  --color-brand-blue: #0038E3;
+  --color-lime: #CCFF00;
+  --color-ink: #14141F;
+  --color-muted: #6B7280;
+  --color-surface-gray: #F4F4F5;
+  --color-card-border: #E5E7EB;
+  --color-growth-gradient-start: #F3FFD6;
+  --color-growth-gradient-end: #E7EAFB;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── Base Styles ── */
+body {
+  font-family: var(--font-body), sans-serif;
+  color: var(--color-ink);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Heading Font Override ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), sans-serif;
+}
+
+/* ══════════════════════════════════════════════
+   Hero Animations
+   Uses the CSS `translate` individual-transform property
+   so floating animations don't clobber static `transform: rotate()`
+   on shape wrappers.
+   ══════════════════════════════════════════════ */
+
+/* ── Entrance (run once) ── */
+@keyframes hero-fade-up {
+  from { opacity: 0; translate: 0 24px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes hero-rise-in {
+  from { opacity: 0; translate: 0 24px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes hero-scale-in {
+  from { opacity: 0; scale: 0.95; }
+  to   { opacity: 1; scale: 1; }
+}
+
+/* ── Looping floats ── */
+@keyframes hero-float {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -10px; }
+}
+
+@keyframes hero-float-card {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -6px; }
+}
+
+/* ── Mobile menu slide ── */
+@keyframes hero-slide-down {
+  from { opacity: 0; translate: 0 -20px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+/* ── Reduced-motion: disable all hero animations ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-hero-animate] {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Hide scrollbar utility ── */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
