@@ -1,5 +1,6 @@
 import { Waves, Sun, Zap, Wind, Radar } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { Reveal } from "@/components/ui";
 
 /* ── Icon-in-circle wrappers ── */
 
@@ -84,31 +85,33 @@ export function LogoStrip() {
           rather than edge-to-edge space-between across the 1200px container width.
           Mobile (<640px): horizontal scroll-snap with hidden scrollbar.
         */}
-        <div
-          className="
-            flex items-center
-            justify-center gap-12 md:gap-14 lg:gap-16
-            max-sm:justify-start max-sm:gap-8
-            max-sm:overflow-x-auto max-sm:snap-x max-sm:snap-mandatory
-            max-sm:-mx-4 max-sm:px-4
-            scrollbar-none
-          "
-        >
-          {LOGOS.map((logo, i) => (
-            <div
-              key={i}
-              className="flex shrink-0 items-center gap-2.5 max-sm:snap-start"
-            >
-              {logo.icon}
-              <span
-                className="text-[19px] font-medium text-[#6B7280] tracking-tight select-none"
-                style={{ fontFamily: "var(--font-body)" }}
+        <Reveal>
+          <div
+            className="
+              flex items-center
+              justify-center gap-12 md:gap-14 lg:gap-16
+              max-sm:justify-start max-sm:gap-8
+              max-sm:overflow-x-auto max-sm:snap-x max-sm:snap-mandatory
+              max-sm:-mx-4 max-sm:px-4
+              scrollbar-none
+            "
+          >
+            {LOGOS.map((logo, i) => (
+              <div
+                key={i}
+                className="flex shrink-0 items-center gap-2.5 max-sm:snap-start"
               >
-                Logoipsum
-              </span>
-            </div>
-          ))}
-        </div>
+                {logo.icon}
+                <span
+                  className="text-[19px] font-medium text-[#6B7280] tracking-tight select-none"
+                  style={{ fontFamily: "var(--font-body)" }}
+                >
+                  Logoipsum
+                </span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </Container>
     </section>
   );

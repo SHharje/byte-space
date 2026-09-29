@@ -7,13 +7,15 @@ import { useRouter } from "next/navigation";
 import { Search, ShoppingBag, Menu, X } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { Button } from "@/components/ui/Button";
+import { GridBackground } from "@/components/ui/GridBackground";
+import { Navbar } from "@/components/ui/Navbar";
 
 /* ══════════════════════════════════════════════════════════
    SVG DOODLE SHAPES
    ══════════════════════════════════════════════════════════ */
 
 /** Reusable zigzag coil / spring (lime or white, 3.5 loops). */
-function CoilSVG({ id, color }: { id: string; color: "lime" | "white" }) {
+export function CoilSVG({ id, color }: { id: string; color: "lime" | "white" }) {
   const isLime = color === "lime";
   const shadow = isLime ? "#8FC400" : "#C3CADF";
   const base = isLime ? "#CCFF00" : "#F4F6FC";
@@ -186,13 +188,13 @@ function ProgressCard() {
   );
 }
 
-function HappyStudentsCard() {
+export function HappyStudentsCard({ className = "" }: { className?: string } = {}) {
   const avatars = [1, 2, 3, 1, 2].map(
     (n) => `/images/avatars/avatar-${n}.png`
   );
 
   return (
-    <div className={CARD} style={{ minWidth: 250 }}>
+    <div className={`${CARD} ${className}`} style={{ minWidth: 250 }}>
       <p
         className="text-[16px] font-medium text-ink"
         style={{ fontFamily: "var(--font-body)" }}
@@ -321,25 +323,16 @@ export function Hero() {
 
   const onSearch = (e: FormEvent) => {
     e.preventDefault();
-    if (query.trim())
+    if (query.trim()) {
       router.push(`/courses?q=${encodeURIComponent(query.trim())}`);
-  };
-
-  /* Grid background applied to the section (covers full viewport width) */
-  const gridBg: React.CSSProperties = {
-    backgroundImage: [
-      "linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px)",
-      "linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px)",
-    ].join(","),
-    backgroundSize: "120px 120px",
-    backgroundPosition: "0 -1px",
+    } else {
+      router.push("/courses");
+    }
   };
 
   return (
-    <section
-      className="relative overflow-hidden bg-brand-blue"
-      style={gridBg}
-    >
+    <section className="relative overflow-hidden bg-brand-blue">
+      <GridBackground />
       {/* ═══════════════════════════════════════
          DESKTOP LAYOUT (≥ 768 px)
          Stage: 1440×1024, scale(vw/1440) below 1440
@@ -358,54 +351,7 @@ export function Hero() {
           }}
         >
           {/* ────────── Navbar (z-10) ────────── */}
-          <nav
-            aria-label="Primary"
-            className="absolute inset-x-0 top-0 z-10 flex h-[120px] items-center px-[60px]"
-          >
-            <Link href="/" aria-label="ByteSpace home">
-              <Logo variant="light" />
-            </Link>
-
-            <div className="flex flex-1 items-center justify-center gap-6">
-              {NAV_LINKS.map((l) => (
-                <Link
-                  key={l.label}
-                  href={l.href}
-                  className={`text-[16px] transition-colors ${
-                    l.active
-                      ? "font-medium text-white"
-                      : "text-white/90 hover:underline hover:underline-offset-[6px]"
-                  }`}
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-6">
-              <Link
-                href="/signin"
-                className="text-[16px] text-white"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/join"
-                className="text-[16px] text-white"
-                style={{ fontFamily: "var(--font-body)" }}
-              >
-                Join Us
-              </Link>
-              <button
-                aria-label="Cart"
-                className="cursor-pointer text-white"
-              >
-                <ShoppingBag size={24} />
-              </button>
-            </div>
-          </nav>
+          <Navbar className="absolute inset-x-0 top-0 z-10 w-full" />
 
           {/* ────────── Headline + Subtext + Search (z-10) ────────── */}
           <div className="absolute inset-x-0 top-[185px] z-10 flex flex-col items-center text-center">
