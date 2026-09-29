@@ -5,3 +5,7 @@ export { Logo } from "./Logo";
 export { Pill } from "./Pill";
 export { SectionHeading } from "./SectionHeading";
 export { StatBlock } from "./StatBlock";
+export { GridBackground, gridBackgroundStyle } from "./GridBackground";
+export { Navbar } from "./Navbar";
+export { Reveal, RevealGroup, RevealItem } from "./Reveal";
+export { CountUp } from "./CountUp";

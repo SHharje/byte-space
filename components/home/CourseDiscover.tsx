@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { Pill } from "@/components/ui/Pill";
+import { Reveal, RevealGroup } from "@/components/ui";
 import { CourseCard, type CourseCardData } from "./CourseCard";
+import { BASE_COURSES } from "@/lib/courses-data";
 
 /* ── Category list ── */
 const CATEGORIES = [
@@ -28,104 +30,7 @@ const CATEGORIES = [
 ] as const;
 
 /* ── Mock course data ── */
-const COURSES: CourseCardData[] = [
-  {
-    image: "/images/courses/course-1.jpg",
-    title: "Learn Figma from Basic",
-    fullTitle: "Learn Figma from Basic",
-    rating: 4.5,
-    byline: "purepearl studio",
-    level: "Beginner",
-    price: "$25",
-    period: "/lifetime",
-    lessons: "17 Lessons",
-    duration: "2 hours 16 mins",
-    comments: "59 Comments",
-    students: "26+",
-    category: "Featured",
-    slug: "learn-figma-from-basic",
-  },
-  {
-    image: "/images/courses/course-2.jpg",
-    title: "Build Digital Asset",
-    fullTitle: "Build Digital Asset",
-    rating: 4.5,
-    byline: "purepearl studio",
-    level: "Beginner",
-    price: "$25",
-    period: "/lifetime",
-    lessons: "17 Lessons",
-    duration: "2 hours 16 mins",
-    comments: "59 Comments",
-    students: "26+",
-    category: "Featured",
-    slug: "build-digital-asset",
-  },
-  {
-    image: "/images/courses/course-3.jpg",
-    title: "the Power of Big Data",
-    fullTitle: "the Power of Big Data",
-    rating: 4.5,
-    byline: "purepearl studio",
-    level: "Beginner",
-    price: "$25",
-    period: "/lifetime",
-    lessons: "17 Lessons",
-    duration: "2 hours 16 mins",
-    comments: "59 Comments",
-    students: "26+",
-    category: "Featured",
-    slug: "the-power-of-big-data",
-  },
-  {
-    image: "/images/courses/course-4.jpg",
-    title: "Balancing Productivity an…",
-    fullTitle: "Balancing Productivity and Creativity in Work",
-    rating: 4.5,
-    byline: "purepearl studio",
-    level: "Beginner",
-    price: "$25",
-    period: "/lifetime",
-    lessons: "17 Lessons",
-    duration: "2 hours 16 mins",
-    comments: "59 Comments",
-    students: "26+",
-    category: "Featured",
-    slug: "balancing-productivity-and-creativity-in-work",
-  },
-  {
-    image: "/images/courses/course-5.jpg",
-    title: "Mastering Money Manage…",
-    fullTitle: "Mastering Money Management and Investment",
-    rating: 4.5,
-    byline: "purepearl studio",
-    level: "Beginner",
-    price: "$25",
-    period: "/lifetime",
-    lessons: "17 Lessons",
-    duration: "2 hours 16 mins",
-    comments: "59 Comments",
-    students: "26+",
-    category: "Featured",
-    slug: "mastering-money-management-and-investment",
-  },
-  {
-    image: "/images/courses/course-6.jpg",
-    title: "From Idea to Startup Succ…",
-    fullTitle: "From Idea to Startup Success",
-    rating: 4.5,
-    byline: "purepearl studio",
-    level: "Beginner",
-    price: "$25",
-    period: "/lifetime",
-    lessons: "17 Lessons",
-    duration: "2 hours 16 mins",
-    comments: "59 Comments",
-    students: "26+",
-    category: "Featured",
-    slug: "from-idea-to-startup-success",
-  },
-];
+const COURSES: CourseCardData[] = BASE_COURSES;
 
 export function CourseDiscover() {
   const [activeCategory, setActiveCategory] = useState("Featured");
@@ -141,7 +46,7 @@ export function CourseDiscover() {
     <section className="bg-white py-20 sm:py-24">
       <Container>
         {/* ── Heading ── */}
-        <div className="mx-auto max-w-[700px] text-center">
+        <Reveal className="mx-auto max-w-[700px] text-center">
           <h2
             className="text-ink text-[32px] sm:text-[36px] lg:text-[40px] font-bold leading-tight"
             style={{ fontFamily: "var(--font-heading)" }}
@@ -158,7 +63,7 @@ export function CourseDiscover() {
             Explore a variety of courses across different fields, from technology to
             the arts, and make a difference in your career and life.
           </p>
-        </div>
+        </Reveal>
 
         {/* ── Category Pills ── */}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
@@ -183,11 +88,11 @@ export function CourseDiscover() {
 
         {/* ── Course Grid ── */}
         {filtered.length > 0 ? (
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((course) => (
               <CourseCard key={course.slug} course={course} />
             ))}
-          </div>
+          </RevealGroup>
         ) : (
           <div className="mt-12 flex flex-col items-center justify-center py-16">
             <p

@@ -1,5 +1,6 @@
 import { PencilRuler, Laptop } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { Reveal, RevealGroup } from "@/components/ui";
 
 /* ══════════════════════════════════════════════════════
    IconTile — lime circle with an icon inside
@@ -184,7 +185,7 @@ export function LearningPaths() {
     <section className="bg-white py-20 sm:py-24">
       <Container>
         {/* ── Heading ── */}
-        <div className="mx-auto max-w-[700px] text-center">
+        <Reveal className="mx-auto max-w-[700px] text-center">
           <h2
             className="text-ink text-[28px] sm:text-[32px] lg:text-[34px] font-bold leading-tight"
             style={{ fontFamily: "var(--font-heading)" }}
@@ -200,14 +201,14 @@ export function LearningPaths() {
             there&rsquo;s something for everyone. Unleash your potential and
             explore our carefully curated categories.
           </p>
-        </div>
+        </Reveal>
 
         {/* ── Icon Grid ── */}
-        <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
+        <RevealGroup className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
           {PATHS.map((p) => (
             <IconTile key={p.label} {...p} />
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );
