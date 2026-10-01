@@ -23,11 +23,16 @@ export interface CourseCardData {
 }
 
 /* ── Component ── */
-export function CourseCard({ course }: { course: CourseCardData }) {
+export function CourseCard({
+  course,
+  className = "",
+}: {
+  course: CourseCardData;
+  className?: string;
+}) {
   return (
     <div
-      className="group relative block rounded-2xl border border-card-border bg-white overflow-hidden
-        transition-all duration-200 hover:shadow-lg hover:-translate-y-1"
+      className={`group relative block rounded-2xl border border-card-border bg-white overflow-hidden transition-all duration-200 hover:shadow-lg hover:-translate-y-1 ${className}`}
     >
       {/* Primary card link spanning entire card */}
       <Link
