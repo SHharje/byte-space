@@ -188,13 +188,26 @@ function ProgressCard() {
   );
 }
 
-export function HappyStudentsCard({ className = "" }: { className?: string } = {}) {
+export interface HappyStudentsCardProps {
+  className?: string;
+  variant?: "white" | "lime";
+}
+
+export function HappyStudentsCard({
+  className = "",
+  variant = "white",
+}: HappyStudentsCardProps = {}) {
+  const isLime = variant === "lime";
   const avatars = [1, 2, 3, 1, 2].map(
     (n) => `/images/avatars/avatar-${n}.png`
   );
 
+  const cardBgClass = isLime
+    ? "bg-lime text-ink rounded-[10px] p-4 shadow-[0_8px_24px_rgba(0,20,120,0.18)]"
+    : `${CARD}`;
+
   return (
-    <div className={`${CARD} ${className}`} style={{ minWidth: 250 }}>
+    <div className={`${cardBgClass} ${className}`} style={{ minWidth: 250 }}>
       <p
         className="text-[16px] font-medium text-ink"
         style={{ fontFamily: "var(--font-body)" }}
@@ -211,7 +224,7 @@ export function HappyStudentsCard({ className = "" }: { className?: string } = {
           4.5
         </span>
         <span
-          className="text-[13px] text-muted"
+          className={`text-[13px] ${isLime ? "text-ink/70" : "text-muted"}`}
           style={{ fontFamily: "var(--font-body)" }}
         >
           (240)
@@ -220,7 +233,7 @@ export function HappyStudentsCard({ className = "" }: { className?: string } = {
           width={14}
           height={14}
           viewBox="0 0 24 24"
-          fill="#CCFF00"
+          fill={isLime ? "#3B82F6" : "#CCFF00"}
           aria-hidden="true"
         >
           <polygon points="12,2 15.1,8.3 22,9.3 17,14.1 18.2,21 12,17.8 5.8,21 7,14.1 2,9.3 8.9,8.3" />
@@ -232,7 +245,9 @@ export function HappyStudentsCard({ className = "" }: { className?: string } = {
         {avatars.map((src, i) => (
           <div
             key={i}
-            className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-white"
+            className={`relative h-10 w-10 overflow-hidden rounded-full border-2 ${
+              isLime ? "border-lime" : "border-white"
+            }`}
             style={{ marginLeft: i > 0 ? -10 : 0, zIndex: 10 - i }}
           >
             <Image
@@ -245,11 +260,13 @@ export function HappyStudentsCard({ className = "" }: { className?: string } = {
           </div>
         ))}
         <div
-          className="relative flex h-10 w-10 items-center justify-center rounded-full bg-lime"
+          className={`relative flex h-10 w-10 items-center justify-center rounded-full ${
+            isLime ? "bg-ink border-2 border-lime" : "bg-lime"
+          }`}
           style={{ marginLeft: -10, zIndex: 0 }}
         >
           <span
-            className="text-[12px] font-bold text-ink"
+            className={`text-[12px] font-bold ${isLime ? "text-white" : "text-ink"}`}
             style={{ fontFamily: "var(--font-body)" }}
           >
             2K+
@@ -699,7 +716,7 @@ export function Hero() {
               ))}
               <hr className="w-40 border-white/20" />
               <Link
-                href="/signin"
+                href="/login"
                 onClick={() => setMenuOpen(false)}
                 className="text-lg text-white"
                 style={{ fontFamily: "var(--font-body)" }}
@@ -711,7 +728,7 @@ export function Hero() {
                 size="lg"
                 onClick={() => {
                   setMenuOpen(false);
-                  router.push("/join");
+                  router.push("/register");
                 }}
               >
                 Join Us

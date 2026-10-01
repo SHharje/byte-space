@@ -109,14 +109,14 @@ export function Navbar({
         {/* Right action items */}
         <div className="flex items-center gap-6">
           <Link
-            href="/signin"
+            href="/login"
             className={`text-[16px] ${textColor}`}
             style={{ fontFamily: "var(--font-body)" }}
           >
             Sign In
           </Link>
           <Link
-            href="/join"
+            href="/register"
             className={`text-[16px] ${textColor}`}
             style={{ fontFamily: "var(--font-body)" }}
           >
@@ -202,7 +202,7 @@ export function Navbar({
               }`}
             />
             <Link
-              href="/signin"
+              href="/login"
               onClick={() => setMenuOpen(false)}
               className={`text-lg ${textColor}`}
               style={{ fontFamily: "var(--font-body)" }}
@@ -214,7 +214,7 @@ export function Navbar({
               size="lg"
               onClick={() => {
                 setMenuOpen(false);
-                router.push("/join");
+                router.push("/register");
               }}
             >
               Join Us
