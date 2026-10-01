@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BarChart3, Star } from "lucide-react";
+import { getCreatorHref } from "@/data/creators";
 
 /* ── Types ── */
 export interface CourseCardData {
+  id?: string;
   image: string;
   title: string;
   fullTitle: string;
@@ -23,13 +25,19 @@ export interface CourseCardData {
 /* ── Component ── */
 export function CourseCard({ course }: { course: CourseCardData }) {
   return (
-    <Link
-      href={`/courses/${course.slug}`}
-      className="group block rounded-2xl border border-card-border bg-white overflow-hidden
+    <div
+      className="group relative block rounded-2xl border border-card-border bg-white overflow-hidden
         transition-all duration-200 hover:shadow-lg hover:-translate-y-1"
     >
+      {/* Primary card link spanning entire card */}
+      <Link
+        href={`/courses/${course.slug}`}
+        className="absolute inset-0 z-0"
+        aria-label={course.fullTitle}
+      />
+
       {/* ── Thumbnail ── */}
-      <div className="relative aspect-[16/11] overflow-hidden">
+      <div className="relative aspect-[16/11] overflow-hidden pointer-events-none">
         <Image
           src={course.image}
           alt={course.fullTitle}
@@ -72,17 +80,22 @@ export function CourseCard({ course }: { course: CourseCardData }) {
           </span>
         </div>
 
-        {/* Byline */}
+        {/* Byline with accessible Creator link */}
         <p
-          className="mt-0.5 text-[13px] text-muted"
+          className="relative z-10 mt-0.5 text-[13px] text-muted pointer-events-none"
           style={{ fontFamily: "var(--font-body)" }}
         >
           by{" "}
-          <span className="text-[#3B82F6] hover:underline">{course.byline}</span>
+          <Link
+            href={getCreatorHref(course.byline)}
+            className="pointer-events-auto text-[#3B82F6] hover:underline"
+          >
+            {course.byline}
+          </Link>
         </p>
 
         {/* Meta row: Beginner + Avatars + student count */}
-        <div className="mt-3 flex items-center justify-between">
+        <div className="mt-3 flex items-center justify-between pointer-events-none">
           {/* Level pill */}
           <span
             className="inline-flex items-center gap-1 rounded-full bg-[#F3F4F6] px-2.5 py-1 text-[12px] font-medium text-muted"
@@ -121,7 +134,7 @@ export function CourseCard({ course }: { course: CourseCardData }) {
         </div>
 
         {/* Price row */}
-        <div className="mt-3 flex items-baseline">
+        <div className="mt-3 flex items-baseline pointer-events-none">
           <span
             className="text-[18px] font-bold text-[#3B82F6]"
             style={{ fontFamily: "var(--font-heading)" }}
@@ -136,6 +149,6 @@ export function CourseCard({ course }: { course: CourseCardData }) {
           </span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

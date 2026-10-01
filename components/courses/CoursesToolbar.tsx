@@ -46,7 +46,19 @@ const SORT_OPTIONS: CourseSort[] = [
   "Price: High to Low",
 ];
 
-export function CoursesToolbar() {
+export interface CoursesToolbarProps {
+  showCategories?: boolean;
+  showBorderBottom?: boolean;
+  className?: string;
+  paddingY?: string;
+}
+
+export function CoursesToolbar({
+  showCategories = true,
+  showBorderBottom = true,
+  className = "",
+  paddingY,
+}: CoursesToolbarProps = {}) {
   const {
     category,
     setCategory,
@@ -112,7 +124,11 @@ export function CoursesToolbar() {
     "inline-flex items-center gap-2 rounded-full border border-card-border bg-white px-4 py-2 text-[14px] font-medium text-ink transition-all hover:bg-[#F9FAFB] active:bg-[#F3F4F6] cursor-pointer select-none shadow-[0_1px_2px_rgba(0,0,0,0.04)]";
 
   return (
-    <section className="bg-white py-6 md:py-8 border-b border-card-border/60">
+    <section
+      className={`bg-white ${
+        paddingY ?? (showCategories ? "py-6 md:py-8" : "pt-10 pb-0")
+      } ${showBorderBottom ? "border-b border-card-border/60" : ""} ${className}`}
+    >
       <Container>
         <Reveal>
           {/* ══════════════════════════════════════════════════
@@ -301,22 +317,24 @@ export function CoursesToolbar() {
         {/* ══════════════════════════════════════════════════
             ROW 2: CATEGORY PILLS (Horizontal Scrollable Row)
             ══════════════════════════════════════════════════ */}
-        <div className="mt-5 flex items-center gap-2.5 overflow-x-auto scrollbar-none pb-1 pt-1">
-          {CATEGORIES.map((cat) => {
-            const isActive = category === cat;
-            return (
-              <div key={cat} className="shrink-0">
-                <Pill
-                  active={isActive}
-                  onClick={() => setCategory(cat)}
-                  className="whitespace-nowrap px-4 py-2 text-[14px]"
-                >
-                  {cat}
-                </Pill>
-              </div>
-            );
-          })}
-        </div>
+        {showCategories && (
+          <div className="mt-5 flex items-center gap-2.5 overflow-x-auto scrollbar-none pb-1 pt-1">
+            {CATEGORIES.map((cat) => {
+              const isActive = category === cat;
+              return (
+                <div key={cat} className="shrink-0">
+                  <Pill
+                    active={isActive}
+                    onClick={() => setCategory(cat)}
+                    className="whitespace-nowrap px-4 py-2 text-[14px]"
+                  >
+                    {cat}
+                  </Pill>
+                </div>
+              );
+            })}
+          </div>
+        )}
         </Reveal>
       </Container>
 
@@ -481,3 +499,12 @@ export function CoursesToolbar() {
     </section>
   );
 }
+
+/**
+ * FilterSortRow — Reusable top row of CoursesToolbar (Filter / Level / Category / Sort)
+ * without the category pills row and bottom border, matching Creator profile and other minimal toolbars.
+ */
+export function FilterSortRow(props: Omit<CoursesToolbarProps, "showCategories">) {
+  return <CoursesToolbar showCategories={false} showBorderBottom={false} {...props} />;
+}
+

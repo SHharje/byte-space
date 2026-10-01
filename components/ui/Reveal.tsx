@@ -137,11 +137,15 @@ export function RevealGroup({
       className={className}
       style={style}
     >
-      {Children.map(children, (child) => {
+      {Children.map(children, (child, idx) => {
         if (!isValidElement(child)) return child;
 
         return (
-          <motion.div variants={fadeUpVariants} className="h-full">
+          <motion.div
+            key={child.key ? String(child.key) : `reveal-item-${idx}`}
+            variants={fadeUpVariants}
+            className="h-full"
+          >
             {child}
           </motion.div>
         );

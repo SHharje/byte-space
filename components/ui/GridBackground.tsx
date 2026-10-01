@@ -6,7 +6,7 @@ export const gridBackgroundStyle: CSSProperties = {
     "linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px)",
   ].join(","),
   backgroundSize: "120px 120px",
-  backgroundPosition: "0 -1px",
+  backgroundPosition: "0 0",
 };
 
 interface GridBackgroundProps {
