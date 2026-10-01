@@ -18,7 +18,7 @@ interface NavbarProps {
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Courses", href: "/courses" },
-  { label: "Creators", href: "/creators" },
+  { label: "Creators", href: "/creators/purepearl-studio" },
 ];
 
 export function Navbar({
@@ -71,7 +71,7 @@ export function Navbar({
   const isLinkActive = (item: (typeof NAV_ITEMS)[0]) => {
     if (active) return active.toLowerCase() === item.label.toLowerCase();
     if (item.href === "/") return pathname === "/";
-    return pathname.startsWith(item.href);
+    return pathname.startsWith(item.href) || (item.label === "Creators" && pathname.startsWith("/creators"));
   };
 
   return (

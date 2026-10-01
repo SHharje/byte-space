@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: "/creators",
+        destination: "/creators/purepearl-studio",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

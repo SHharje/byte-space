@@ -284,7 +284,7 @@ export function HappyStudentsCard({
 const NAV_LINKS = [
   { label: "Home", href: "/", active: true },
   { label: "Courses", href: "/courses", active: false },
-  { label: "Creators", href: "/creators", active: false },
+  { label: "Creators", href: "/creators/purepearl-studio", active: false },
 ];
 
 const SHAPE_SHADOW = "drop-shadow(0 14px 16px rgba(0,20,120,0.35))";
