@@ -89,8 +89,11 @@ export function CourseDiscover() {
         {/* ── Course Grid ── */}
         {filtered.length > 0 ? (
           <RevealGroup className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((course) => (
-              <CourseCard key={course.slug} course={course} />
+            {filtered.map((course, idx) => (
+              <CourseCard
+                key={course.id || `${course.slug}-${idx}`}
+                course={course}
+              />
             ))}
           </RevealGroup>
         ) : (

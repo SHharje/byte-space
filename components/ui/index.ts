@@ -9,3 +9,4 @@ export { GridBackground, gridBackgroundStyle } from "./GridBackground";
 export { Navbar } from "./Navbar";
 export { Reveal, RevealGroup, RevealItem } from "./Reveal";
 export { CountUp } from "./CountUp";
+export { LearningProgressCard } from "./LearningProgressCard";
